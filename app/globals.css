@@ -2,32 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+html, 
+body, 
+:root {
+  height: 100%;
+}
+
+.user-menu-cta {
+  @apply hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer;
+}
+.user-menu-btn {
+  @apply p-4 md:py-1 md:px-2 border border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition;
+}
+.user-menu-menu {
+  @apply absolute rounded-lg shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 md:top-12 top-14 text-sm;
+}
+.modal-wrapper {
+  @apply flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70;
+}
+.modal-container {
+  @apply relative w-[94%] md:w-4/6 lg:w-3/6 xl:w-2/5 my-6 mx-auto h-auto md:h-auto lg:h-auto;
+}
+.modal-content {
+  @apply flex items-center p-5 rounded-t justify-center relative border-b
 }
