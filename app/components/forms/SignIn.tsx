@@ -10,11 +10,13 @@ import Input from "../shared/Input"
 import toast from "react-hot-toast"
 import Button from "../addons/Button"
 import useSignIn from "@/app/hooks/useSignIn"
+import useSignUp from "@/app/hooks/useSignUp"
 import { useRouter } from "next/navigation"
 
 
 const SignIn = () => {
   const signInUser = useSignIn();
+  const signUpUser = useSignUp();
   const router = useRouter();
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -38,6 +40,11 @@ const SignIn = () => {
       }
     });
   }
+
+  const toggleForm = React.useCallback(() => {
+    signInUser.onClose(); 
+    signUpUser.onOpen();
+  },[signInUser, signUpUser]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -73,12 +80,12 @@ const SignIn = () => {
         outline
         label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => {}}
+        onClick={() => signIn('google')}
       />
       <div className="text-center text-neutral-500 mt-4 font-light ">
         <div className="flex flex-row items-center gap-2 justify-center">
-          <div>Already have an account</div>
-          <div className="text-neutral-800 cursor-pointer hover:underline" onClick={signInUser.onClose}>Log in</div>
+          <div>First time using Nomeo Coliving?</div>
+          <div className="text-neutral-800 cursor-pointer hover:underline" onClick={toggleForm}>Create an account</div>
         </div>
       </div>
     </div>

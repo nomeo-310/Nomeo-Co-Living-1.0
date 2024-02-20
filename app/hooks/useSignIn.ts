@@ -1,8 +1,8 @@
 import { create } from "zustand";
-import { useSignUpProps } from "../types/types";
+import { modalControProps } from "../types/types";
 
 
-const useSignIn = create<useSignUpProps>((set) => ({
+const useSignIn = create<modalControProps>((set) => ({
   isOpen: false,
   onOpen: () => set({ isOpen: true }),
   onClose: () => set({ isOpen: false }),

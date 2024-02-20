@@ -32,3 +32,12 @@ body,
 .modal-content {
   @apply flex items-center p-5 rounded-t justify-center relative border-b
 }
+
+.leaflet-bottom,
+.leaflet-control,
+.leaflet-pane,
+.leaflet-top {
+  z-index: 0 !important;
+}
+
+ 

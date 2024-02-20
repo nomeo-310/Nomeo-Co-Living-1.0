@@ -6,7 +6,7 @@ import SignUp from "./components/forms/SignUp";
 import ToasterProvider from "./providers/ToasterProvider";
 import SignIn from "./components/forms/SignIn";
 import { getCurrentUser } from "./libs/actions/auth.actions";
-import { User } from "@prisma/client";
+import Rent from "./components/forms/Rent";
 
 const nunitoRegular = localFont({ src: '../public/fonts/Nunito-Regular.ttf' })
 
@@ -21,10 +21,13 @@ export default async function RootLayout({children,}: Readonly<{children: React.
     <html lang="en">
       <body className={nunitoRegular.className}>
         <ToasterProvider/>
+        <Rent/>
         <SignIn/>
         <SignUp/>
         <NavBar currentUser={currentUser}/>
-        {children}
+        <div className="pb-20 pt-28">
+          {children}
+        </div>
       </body>
     </html>
   );

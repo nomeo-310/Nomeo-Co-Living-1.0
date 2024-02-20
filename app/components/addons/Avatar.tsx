@@ -4,16 +4,16 @@ import Image from 'next/image'
 import React from 'react'
 
 interface Props {
-  
+  imageSrc: string
 }
 
-const Avatar = (props: Props) => {
+const Avatar = ({imageSrc}: Props) => {
   return (
     <Image
-      src={'/images/placeholder.jpg'}
+      src={imageSrc ? imageSrc : '/images/placeholder.jpg'}
       className='rounded-full'
-      height={30}
-      width={30}
+      height={35}
+      width={35}
       alt='user_avatar'
     />
   )

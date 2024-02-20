@@ -10,10 +10,13 @@ import Input from "../shared/Input"
 import toast from "react-hot-toast"
 import Button from "../addons/Button"
 import { createUser } from "@/app/libs/actions/user.actions"
+import { signIn } from "next-auth/react"
+import useSignIn from "@/app/hooks/useSignIn"
 
 
 const SignUp = () => {
   const signUpUser = useSignUp();
+  const signInUser = useSignIn();
   const [isLoading, setIsLoading] = React.useState(false);
 
   const { register, handleSubmit, formState: {errors} } = useForm<FieldValues>({
@@ -21,7 +24,8 @@ const SignUp = () => {
   });
 
   const onSubmit:SubmitHandler<FieldValues> = async(data) => {
-    const newData = {email: data.email, password:data.password, name:data.name }
+    const { email, password, name } = data;
+    const newData = { email: email, password: password, name: name }
     setIsLoading(true);
     try {
       await createUser(newData)
@@ -36,7 +40,7 @@ const SignUp = () => {
   const bodyContent = (
     <div className="flex flex-col gap-4">
       <Heading
-        title="Register"
+        title="Create Account"
         subtitle="Create an account today!"
       />
       <Input 
@@ -69,6 +73,11 @@ const SignUp = () => {
     </div>
   );
 
+  const toggleForm = React.useCallback(() => {
+    signUpUser.onClose();
+    signInUser.onOpen(); 
+  },[signInUser, signUpUser]);
+
   const footerContent = (
     <div className="mt-3 flex gap-4 flex-col">
       <hr/>
@@ -76,12 +85,12 @@ const SignUp = () => {
         outline
         label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => {}}
+        onClick={() => signIn('google')}
       />
       <div className="text-center text-neutral-500 mt-4 font-light ">
         <div className="flex flex-row items-center gap-2 justify-center">
-          <div>Already have an account</div>
-          <div className="text-neutral-800 cursor-pointer hover:underline" onClick={signUpUser.onClose}>Log in</div>
+          <div>Already have an account?</div>
+          <div className="text-neutral-800 cursor-pointer hover:underline" onClick={toggleForm}>Log in</div>
         </div>
       </div>
     </div>
@@ -91,7 +100,7 @@ const SignUp = () => {
     <Modal
       disabled={isLoading}
       isOpen={signUpUser.isOpen}
-      title="Register"
+      title="Create Account"
       actionLabel="Continue"
       onClose={signUpUser.onClose}
       onSubmit={handleSubmit(onSubmit)}
