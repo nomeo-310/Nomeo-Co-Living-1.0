@@ -1,3 +1,6 @@
+export const dynamic = 'force-dynamic'
+
+
 import Container from "./components/addons/Container";
 import EmptyState from "./components/addons/EmptyState";
 import SingleListing from "./components/cards/ListingCard";
