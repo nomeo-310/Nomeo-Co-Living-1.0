@@ -3,14 +3,10 @@
 import React from 'react'
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
-import { IconType } from 'react-icons';
 import qs from 'query-string'
+import { categoryBoxProps } from '@/app/types/types';
 
-export interface categoryBoxProps {
-  icon:IconType
-  label:string
-  selected?:boolean
-}
+
 
 const CategoryBox = ({icon:Icon, label, selected}: categoryBoxProps) => {
   const router = useRouter();

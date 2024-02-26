@@ -13,7 +13,7 @@ import Counters from '../addons/Counters'
 import ImageUploads from '../addons/ImageUploads'
 import Input from '../shared/Input'
 import { createListing } from '@/app/libs/actions/listing.actions'
-import toast from 'react-hot-toast'
+import { toast } from "sonner";
 import { useRouter } from 'next/navigation'
 
 
@@ -75,8 +75,8 @@ const Rent = () => {
 
     setIsLoading(true);
     try {
-      await createListing(listData);
-      toast.success('Listing successfully created');
+      await createListing(listData)
+      toast.success('Listing successfully created')
       router.refresh();
       reset()
       setStep(steps.CATEGORY)

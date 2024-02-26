@@ -6,19 +6,18 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import { AiOutlineMenu } from 'react-icons/ai'
 import Avatar from './Avatar'
-import { menuItemProps } from '@/app/types/types'
+import { menuItemProps, userMenuProps } from '@/app/types/types'
 import useSignUp from '@/app/hooks/useSignUp'
 import useSignIn from '@/app/hooks/useSignIn'
-import { User } from '@prisma/client'
 import { signOut } from 'next-auth/react'
 import Container from './Container'
 import { categories } from '@/app/constant'
 import CategoryBox from './CategoryBox'
 import useRent from '@/app/hooks/useRent'
+import useSearch from '@/app/hooks/useSearch'
+import useCountries from '@/app/hooks/useCountries'
+import { differenceInDays } from 'date-fns'
 
-interface userMenuProps {
-  currentUser: User
-}
 
 const MenuItem = ({onClick, label}:menuItemProps) => {
 
@@ -33,6 +32,8 @@ const UserMenu = ({currentUser}:userMenuProps) => {
   const signUpUser = useSignUp();
   const signInUser = useSignIn();
   const rentOut = useRent();
+  const router = useRouter();
+  
   const [isOpen, setIsOpen] = React.useState(false);
   const toggleOpen = React.useCallback(() => {setIsOpen((value) => !value)},[]);
 
@@ -64,10 +65,10 @@ const UserMenu = ({currentUser}:userMenuProps) => {
           <div className="flex flex-col cursor-pointer">
             { currentUser ? 
               <React.Fragment>
-                <MenuItem onClick={() => {}} label='My trips'/>
-                <MenuItem onClick={() => {}} label='My favourites'/>
-                <MenuItem onClick={() => {}} label='My reservations'/>
-                <MenuItem onClick={() => {}} label='My properties'/>
+                <MenuItem onClick={() => router.push('/trips')} label='My trips'/>
+                <MenuItem onClick={() => router.push('/favourites')} label='My favourites'/>
+                <MenuItem onClick={() => router.push('/reservations')} label='My reservations'/>
+                <MenuItem onClick={() => router.push('/properties')} label='My properties'/>
                 <MenuItem onClick={rentOut.onOpen} label='Rentout my home'/>
                 <hr/> 
                 <MenuItem onClick={() => {signOut()}} label='Logout'/>
@@ -102,17 +103,55 @@ const Logo = () => {
 }
 
 const Search = () => {
+  const searchListings = useSearch();
+  const searchParams = useSearchParams();
+
+  const { getCountryByValue } = useCountries()
+
+  const locvationValue = searchParams.get('locvationValue');
+  const startDate = searchParams.get('startDate');
+  const endTime = searchParams.get('endTime');
+  const guestCount = searchParams.get('guestCount');
+
+  const locationLabel = React.useMemo(() => {
+    if (locvationValue) {
+      return getCountryByValue(locvationValue as string)?.label
+    }
+
+    return 'Anywhere'
+  },[getCountryByValue, locvationValue])
+  
+  const durationLabel = React.useMemo(() => {
+    if (startDate && endTime) {
+      const start = new Date(startDate as string);
+      const end = new Date(endTime as string);
+
+      let diff = differenceInDays(end, start)
+      if (diff === 0) {
+        diff = 1;
+      }
+
+      return `${diff} Days`
+    }
+
+    return 'Any Week'
+  },[startDate, endTime]);
+
+  const guestLabel = React.useMemo(() => {
+    if (guestCount) {
+      return `${guestCount} Guests`
+    }
+
+    return 'Add Guest'
+  },[guestCount])
+
   return (
-    <div className='border w-full md:w-auto py-2 rounded-full shadow-sm hover:shadow-md transition cursor-pointer'>
+    <div className='border w-full md:w-auto py-2 rounded-full shadow-sm hover:shadow-md transition cursor-pointer' onClick={searchListings.onOpen}>
       <div className="flex flex-row items-center justify-between">
-        <div className="text-sm font-semibold px-6">
-          Anywhere
-        </div>
-        <div className="text-sm font-semibold px-6 border-x flex-1 text-center">
-          Any Week
-        </div>
+        <div className="text-sm font-semibold px-6">{locationLabel}</div>
+        <div className="text-sm font-semibold px-6 border-x flex-1 text-center">{durationLabel}</div>
         <div className="text-sm font-semibold pl-6 pr-2 text-center text-gray-500 flex flex-row items-center gap-3">
-          <div className="hidden sm:block">Add Guest</div>
+          <div className="hidden sm:block">{guestLabel}</div>
           <div className="p-2 bg-rose-500 rounded-full text-white">
             <BiSearch size={18}/>
           </div>

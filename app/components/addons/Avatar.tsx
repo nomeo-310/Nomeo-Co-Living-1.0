@@ -1,13 +1,11 @@
 "use client"
 
+import { avatarProps } from '@/app/types/types'
 import Image from 'next/image'
 import React from 'react'
 
-interface Props {
-  imageSrc: string
-}
 
-const Avatar = ({imageSrc}: Props) => {
+const Avatar = ({imageSrc}: avatarProps) => {
   return (
     <Image
       src={imageSrc ? imageSrc : '/images/placeholder.jpg'}

@@ -7,8 +7,9 @@ import ToasterProvider from "./providers/ToasterProvider";
 import SignIn from "./components/forms/SignIn";
 import { getCurrentUser } from "./libs/actions/auth.actions";
 import Rent from "./components/forms/Rent";
+import SearchItem from "./components/forms/SearchItem";
 
-const nunitoRegular = localFont({ src: '../public/fonts/Nunito-Regular.ttf' })
+const barlowRegular = localFont({ src: '../public/fonts/Barlow-Regular.ttf' })
 
 export const metadata: Metadata = {
   title: "Nomeo Coliving 1.0",
@@ -19,8 +20,9 @@ export default async function RootLayout({children,}: Readonly<{children: React.
   const currentUser:any = await getCurrentUser();
   return (
     <html lang="en">
-      <body className={nunitoRegular.className}>
+      <body className={barlowRegular.className}>
         <ToasterProvider/>
+        <SearchItem />
         <Rent/>
         <SignIn/>
         <SignUp/>

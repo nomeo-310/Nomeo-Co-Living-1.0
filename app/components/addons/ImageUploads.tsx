@@ -4,15 +4,12 @@ import React from 'react'
 import { CldUploadWidget } from 'next-cloudinary';
 import { TbPhotoPlus } from 'react-icons/tb';
 import Image from 'next/image';
+import { imageUploadsProps } from '@/app/types/types';
 
 declare global {
   var cloudinary: any
 }
 
-export interface imageUploadsProps {
-  onChange: (value:string) => void
-  value: string
-}
 
 const ImageUploads = ({onChange, value}:imageUploadsProps) => {
   const handleUpload = React.useCallback((result:any) => {

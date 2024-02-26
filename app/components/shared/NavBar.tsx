@@ -3,11 +3,9 @@
 import React from 'react'
 import Container from '../addons/Container';
 import { Categories, Logo, Search, UserMenu } from '../addons/NavBarAddOn';
-import { User } from '@prisma/client';
+import { navBarProps } from '@/app/types/types';
 
-interface navBarProps {
-  currentUser: User
-}
+
 const NavBar = ({currentUser}:navBarProps) => {
   return (
     <div className='w-full fixed bg-white z-10 shadow-sm'>

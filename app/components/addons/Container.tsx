@@ -1,10 +1,8 @@
 "use client"
 
+import { containerProps } from '@/app/types/types';
 import React from 'react'
 
-export interface containerProps {
-  children: React.ReactNode
-}
 
 const Container = ({children}: containerProps) => {
   return (

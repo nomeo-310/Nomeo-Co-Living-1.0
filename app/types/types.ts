@@ -1,6 +1,8 @@
+import React from 'react'
 import { IconType } from 'react-icons'
 import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form'
-import { Listing, Reservation } from '@prisma/client'
+import { Listing, Reservation, User } from '@prisma/client'
+import { Range, RangeKeyDict } from 'react-date-range'
 
 export interface modalProps {
   isOpen?:boolean
@@ -105,4 +107,142 @@ export interface listingCardProps {
   actionLabel?: string;
   actionId?: string;
   currentUser?: any
+}
+
+export interface listingHeadProps {
+  title:string 
+  image:string 
+  locvationValue:string
+  id:string
+  currentUser:User | null
+}
+
+export interface listingInfoProps {
+  user:any
+  category: {
+    icon: IconType
+    label:string
+    description:string
+  } | undefined
+  description:string
+  roomCount:number
+  guestCount:number
+  bathroomCount:number
+  locvationValue:string
+}
+
+export interface listingCategoryProps {
+  icon:IconType
+  label:string
+  description:string
+}
+
+export interface listingClientProps {
+  listing:Listing & {user: User}
+  currentUser:User | null
+  reservations?:Reservation[]
+}
+
+export interface createReservationProps {
+  totalPrice: number
+  startDate: Date
+  endTime: Date
+  listingId: string
+}
+
+export interface tripClientProps {
+  currentUser:User
+  reservations:(Reservation & {listing: Listing})[]
+}
+
+export interface propertyClientProps {
+  currentUser:User
+  listings:Listing[]
+}
+
+export interface IListingsParams {
+  userId?:string;
+  guestCount?:number;
+  roomCount?:number;
+  bathroomCount?:number;
+  startDate?: string;
+  endTime?:string;
+  locvationValue?:string;
+  category?:string;
+}
+
+export interface homeProps {
+  searchParams: IListingsParams;
+}
+
+export interface avatarProps {
+  imageSrc: string
+}
+
+export interface categoryBoxProps {
+  icon:IconType
+  label:string
+  selected?:boolean
+}
+
+export interface containerProps {
+  children: React.ReactNode
+}
+
+export interface headingProps {
+  title:string
+  subtitle?:string
+  center?:boolean
+}
+
+export interface imageUploadsProps {
+  onChange: (value:string) => void
+  value: string
+}
+
+export interface likeButtonProps {
+  listingId:string
+  currentUser:any
+}
+
+export interface listingReservationProps {
+  price:number
+  totalPrice:number
+  onChangeDate: (value: any) => void
+  dateRange:Range
+  onSubmit: () => void
+  disabled?:boolean
+  disableDates:Date[]
+}
+
+export interface calendarProps {
+  value: Range
+  onChange: (value: RangeKeyDict) => void
+  disableDates?: Date[]
+}
+
+export interface userMenuProps {
+  currentUser: User
+}
+
+export interface favouriteClientProps {
+  currentUser: User | null
+  listings: Listing[]
+}
+
+export interface mapProps {
+  center?:number[]
+}
+
+export interface navBarProps {
+  currentUser: User
+}
+
+export interface reservationClientProps {
+  currentUser:User
+  reservations:(Reservation & {listing: Listing})[]
+}
+
+export interface errorStateProps {
+  error: Error
 }

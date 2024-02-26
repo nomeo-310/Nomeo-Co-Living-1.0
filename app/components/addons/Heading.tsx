@@ -1,12 +1,8 @@
 "use client"
 
+import { headingProps } from '@/app/types/types';
 import React from 'react'
 
-export interface headingProps {
-  title:string
-  subtitle?:string
-  center?:boolean
-}
 
 const Heading = ({title, subtitle, center}:headingProps) => {
   return (

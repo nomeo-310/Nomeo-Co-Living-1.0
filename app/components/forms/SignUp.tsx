@@ -7,7 +7,7 @@ import useSignUp from "@/app/hooks/useSignUp"
 import Modal from "../shared/Modal"
 import Heading from "../addons/Heading"
 import Input from "../shared/Input"
-import toast from "react-hot-toast"
+import { toast } from "sonner"
 import Button from "../addons/Button"
 import { createUser } from "@/app/libs/actions/user.actions"
 import { signIn } from "next-auth/react"
@@ -31,6 +31,7 @@ const SignUp = () => {
       await createUser(newData)
       toast.success('Registration successful')
       signUpUser.onClose();
+      signInUser.onOpen();
     } catch (error) {
       toast.error('Something went wrong')
     }
