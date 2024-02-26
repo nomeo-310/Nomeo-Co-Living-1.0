@@ -1,5 +1,5 @@
 import React from 'react'
-import { fetchAllListings } from '../libs/actions/listing.actions'
+import { fetchAllUserListings } from '../libs/actions/listing.actions'
 import { getCurrentUser } from '../libs/actions/auth.actions'
 import EmptyState from '../components/addons/EmptyState';
 import PropertyClient from '../components/shared/PropertyClient';
@@ -25,7 +25,7 @@ export default async function Properties() {
     )
   }
 
-  const listings = await fetchAllListings({userId: currentUser.id});
+  const listings = await fetchAllUserListings(currentUser.id);
    
 
   if (!listings || listings.length === 0) {

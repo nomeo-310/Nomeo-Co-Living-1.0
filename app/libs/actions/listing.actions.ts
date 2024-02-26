@@ -121,6 +121,21 @@ export const fetchAllListings = async (params:IListingsParams) => {
   }
 }
 
+export const fetchAllUserListings = async (userId:string) => {
+  const prisma = new PrismaClient();
+  try {
+    const listings = prisma.listing.findMany(
+      {where: {userId: userId}, orderBy: {createdAt: 'desc'}});
+    if (!listings) {
+      return null;
+    }
+
+    return listings
+  } catch (error:any) {
+    throw new Error(`Failed to fetch listing: ${error.message}`)
+  }
+}
+
 export const fetchSingleListing = async (listingId:string) => {
   const prisma = new PrismaClient();
   try {
