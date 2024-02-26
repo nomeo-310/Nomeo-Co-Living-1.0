@@ -18,7 +18,7 @@ const NavBar = ({currentUser}:navBarProps) => {
           </div>
         </Container>
       </div>
-      <Categories/>
+      {/* <Categories/> */}
     </div>
   )
 }

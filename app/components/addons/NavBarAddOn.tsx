@@ -167,8 +167,9 @@ const Categories = () => {
   const category = params?.get('category');
 
   const isMainPage = pathname === '/';
+
   if (!isMainPage) {
-    return null
+    return null;
   }
 
   return (
