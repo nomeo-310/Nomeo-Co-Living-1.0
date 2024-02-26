@@ -161,14 +161,14 @@ export interface propertyClientProps {
 }
 
 export interface IListingsParams {
-  userId?:string;
-  guestCount?:number;
-  roomCount?:number;
-  bathroomCount?:number;
-  startDate?: string;
+  userId?:string | null;
+  guestCount?:number | null;
+  roomCount?:number | null;
+  bathroomCount?:number | null;
+  startDate?: string | null;
   endTime?:string;
-  locvationValue?:string;
-  category?:string;
+  locvationValue?:string | null;
+  category?:string | null;
 }
 
 export interface homeProps {
